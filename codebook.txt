@@ -4,11 +4,18 @@
 
 Data Set Information:
 
-Ref[1] presents 3-axial linear acceleration and 3-axial angular velocity signals captured at 50 Hz rate by Samsung Galaxy S II smarphones worn by 30 human subjects while performing 6 different activities. In Ref[1], processed data consists of 561 features in addition to the subject and activity IDs.  This source data has been randomly partitioned into 7352 training entries and 2497 test entries.
+Ref[1] presents 3-axial linear acceleration and 3-axial angular velocity signals 
+captured at 50 Hz rate by Samsung Galaxy S II smarphones worn by 30 human subjects 
+while performing 6 different activities. In Ref[1], processed data consists of 561
+features in addition to the subject and activity IDs.  This source data has been
+randomly partitioned into 7352 training entries and 2497 test entries.
 
-The source data has been processed according to instructions in Ref [2].  The training and test data sets are merged, with the subject and activity IDs as well as feature names added.  79 features corresponding to the mean and standard deviation (with feature names containing substring "mean()" or "std()") of each measured quantity are retained.  Then these measurements are averaged over each subject/activity combination.
+The source data has been processed according to instructions in Ref [2].  The train-
+ing and test data sets are merged, with the subject and activity IDs as well as 
+feature names added.  79 features corresponding to the mean and standard deviation 
+(with feature names containing substring "mean()" or "std()") of each measured quantity
+are retained.  Then these measurements are averaged over each subject/activity combination.
    
-
 Attribute Information
 
 Each record in the dataset (neatdata.txt) contains:
@@ -18,6 +25,9 @@ Each record in the dataset (neatdata.txt) contains:
 
 =====================================================
 References
-[1] Machine Learning Repository, "Human Activity Recognition Using Smartphones Data Set"[1]. http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones  (accessed October 23, 2015).
+[1] Machine Learning Repository, "Human Activity Recognition Using Smartphones Data Set". 
+URL: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones  
+(accessed October 23, 2015).
 
-[2] URL: https://class.coursera.org/getdata-033/human_grading/view/courses/975117/assessments/3/submissions (accessed October 23, 2015).
+[2] URL: https://class.coursera.org/getdata-033/human_grading/view/courses/975117/assessments/3/submissions
+(accessed October 23, 2015).
