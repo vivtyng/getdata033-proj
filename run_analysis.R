@@ -10,7 +10,7 @@ tmp1 <- cbind(t1d,t2d,t3d)                     # column bind training data
 tmp2 <- cbind(u1d,u2d,u3d)                     # column bind test data
 BigData <- rbind(tmp1, tmp2)                   # row bind training and test data
 ### Now add the column names:
-featurelist <- read.table("features.txt")      # read names of 561 features
+featurelist <- read.table("getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/features.txt")      # read names of 561 features
 FL <- as.vector(featurelist[,2])               # convert data frame to vector
 Lfea <- length(FL)                            
 colnames(BigData)[1] <- "Subject"              # manually add subject and activity sol names
@@ -25,12 +25,11 @@ Tsk1 <- grepl("mean()",coln)|grepl("std()",coln) # find 79 cols containing mean(
 BigData2 <- cbind(BigData[,1:2],BigData[,Tsk1])  # combine subject, activity and 79 columns
 #====================================
 # step 3 Uses descriptive activity names to name the activities in the data 
-actlbl <- read.table("activity_labels.txt")
+actlbl <- read.table("getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt")
 nlabel <- as.vector(actlbl[,1])
 label <- as.vector(actlbl[,2])
 BigData3 <- BigData2
-for (i in 1:6) {                                # convert step 3, as I will activity codes to char strings in 
-                                                # activity_labels.txt
+for (i in 1:6) {                                # convert activity codes to char strings in activity_labels.txt
   BigData3$Activity[BigData3$Activity==i] <- label[i]
 }
 #====================================
@@ -45,13 +44,19 @@ BigData5 <- BigData3
 for (i in 1:6) {
   BigData5$Activity[BigData5$Activity==label[i]] <- nlabel[i]  # revert relabel activity by integers
 }
-groups <- 10*BigData5$Subject+as.numeric(BigData5$Activity)    # Creating an integer index for each entry, with subject ID in 100s and 10s digits, followed by activity ID in ones digit
+groups <- 10*as.numeric(BigData5$Subject)+as.numeric(BigData5$Activity)    # Creating an integer index for each entry, with subject ID in 100s and 10s digits, followed by activity ID in ones digit
 ugroups <- sort(unique(groups))                                # find unique subject+activity combinations 
-NeatData <- data.frame("Subject"=floor(ugroups/10),"Activity"=ugroups %% floor(ugroups/10)) # Manually add the subject and activity IDs for NeatData
+NeatData <- data.frame("Subject"=floor(ugroups/10),"Activity"=ugroups - floor(ugroups/10)*10) # Manually add the subject and activity IDs for NeatData
+head(NeatData)
 for (i in 3:81) {                                   
 NeatData <- cbind(NeatData,tapply(BigData5[,i],groups,mean))   # Average each col data [1-79] by group index
 colnames(NeatData)[i] <- paste0("<",colnames(BigData5)[i],">") # Add "<>" to col names to denote an average has been taken
 }
+# reinsert the activity labels
+for (i in 1:6) {                                # convert activity codes to char strings in activity_labels.txt
+  NeatData$Activity[NeatData$Activity==i] <- label[i]
+}
+
 #====================================
 # step 6 output neat data results
 write.table(NeatData, file="NeatData.txt",sep=",  ",row.name=FALSE)
